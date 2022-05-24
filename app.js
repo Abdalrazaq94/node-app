@@ -1,23 +1,23 @@
 const express = require('express')
 const app = express()
-const port = 3000
+app.set('view engine', 'ejs')
+const port = 3000;
 
-
-app.listen(port)
 
 app.get('/', (req, res) =>{
-    // res.send('<p>Hello Ninja</p>')
-    res.sendFile('./index.html', {root: __dirname})
+    res.render('index', {title: 'Home'})
 })
+
 app.get('/about', (req, res) =>{
-    res.sendFile('./about.html', {root: __dirname})
-
-})
-app.get('/about-us', (req, res) =>{
-    res.redirect('/about')
-
+    res.render('about', {title: 'About'})
 })
 
-app.use((req, res)=> {
-    res.status(404).sendFile('/404.html', {root: __dirname})
+app.get('/blogs/create', (req, res) =>{
+    res.render("create", {title: 'create'})
 })
+
+
+app.use((req, res) =>{
+    res.status(404).render('404', {title: '404'})
+})
+app.listen(port)
